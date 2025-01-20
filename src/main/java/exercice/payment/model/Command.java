@@ -28,7 +28,8 @@ public class Command {
 
     }
 
-    public Command(String productName, String productRef, int quantity, Double price) {
+    public Command(String productName, String productRef, int quantity, Double price) throws NegativeValueException, NulValueException {
+        validatePrice(price);
         this.productName = productName;
         this.productRef = productRef;
         this.quantity = quantity;
@@ -56,12 +57,7 @@ public class Command {
     }
 
     public void setPrice(Double price) throws NegativeValueException, NulValueException {
-        if (price < 0) {
-            throw new NegativeValueException();
-        }
-        if (price == 0) {
-            throw new NulValueException();
-        }
+        validatePrice(price);
         this.price = price;
     }
 
@@ -75,6 +71,15 @@ public class Command {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    private void validatePrice(Double price) throws NegativeValueException, NulValueException  {
+        if (price < 0) {
+            throw new NegativeValueException();
+        }
+        if (price == 0) {
+            throw new NulValueException();
+        }
     }
 
 }
