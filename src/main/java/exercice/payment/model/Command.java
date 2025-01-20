@@ -1,5 +1,7 @@
 package exercice.payment.model;
 
+import exercice.payment.exception.NegativeValueException;
+import exercice.payment.exception.NulValueException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -53,7 +55,13 @@ public class Command {
         return productRef;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Double price) throws NegativeValueException, NulValueException {
+        if (price < 0) {
+            throw new NegativeValueException();
+        }
+        if (price == 0) {
+            throw new NulValueException();
+        }
         this.price = price;
     }
 
@@ -68,4 +76,5 @@ public class Command {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }
