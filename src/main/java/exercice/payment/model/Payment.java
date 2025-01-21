@@ -2,7 +2,7 @@ package exercice.payment.model;
 
 import exercice.payment.utils.Currency;
 import exercice.payment.utils.PaymentMeans;
-import exercice.payment.utils.Status;
+import exercice.payment.utils.PaymentStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,10 +22,49 @@ public class Payment {
 
     private PaymentMeans paymentMeans;
 
-    private Status paymentStatus;
+    private PaymentStatus paymentStatus;
 
-    public Payment(){
-        this.paymentStatus = Status.IN_PROGRESS;
+    public Payment() {
+        this.paymentStatus = PaymentStatus.IN_PROGRESS;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public int getIdPayment() {
+        return idPayment;
+    }
+
+    public PaymentMeans getPaymentMeans() {
+        return paymentMeans;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public void setPaymentMeans(PaymentMeans paymentMeans) {
+        this.paymentMeans = paymentMeans;
+    }
+
+    public void setIdPayment(int idPayment) {
+        this.idPayment = idPayment;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 }

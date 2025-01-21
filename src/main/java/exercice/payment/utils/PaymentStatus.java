@@ -1,5 +1,5 @@
 package exercice.payment.utils;
 
-public enum Status {
+public enum PaymentStatus {
     IN_PROGRESS, AUTHORIZED, CAPTURED;
 }
