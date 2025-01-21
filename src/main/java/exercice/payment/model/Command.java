@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +24,9 @@ public class Command {
     private int quantity;
 
     private Double price;
+
+    @ManyToOne
+    private Command command;
 
     public Command() {
 
@@ -92,6 +96,14 @@ public class Command {
         if (quantity == 0) {
             throw new NulValueException();
         }
+    }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public void setCommand(Command command) {
+        this.command = command;
     }
 
 }

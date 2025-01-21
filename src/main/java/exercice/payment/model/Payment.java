@@ -2,6 +2,9 @@ package exercice.payment.model;
 
 import exercice.payment.exception.NulValueException;
 import exercice.payment.exception.PaymentStatusException;
+
+import java.util.List;
+
 import exercice.payment.exception.NegativeValueException;
 import exercice.payment.utils.Currency;
 import exercice.payment.utils.PaymentMeans;
@@ -10,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +30,9 @@ public class Payment {
     private PaymentMeans paymentMeans;
 
     private PaymentStatus paymentStatus;
+
+    @OneToMany
+    private List<Command> listCommands;
 
     public Payment() {
         this.paymentStatus = PaymentStatus.IN_PROGRESS;
@@ -87,5 +94,17 @@ public class Payment {
         } else {
             throw new PaymentStatusException();
         }
+    }
+
+    public List<Command> getListCommands() {
+        return listCommands;
+    }
+
+    public void setListCommands(List<Command> listCommands) {
+        this.listCommands = listCommands;
+    }
+
+    public void addCommand(Command command) {
+        this.listCommands.add(command);
     }
 }
