@@ -30,6 +30,7 @@ public class Command {
 
     public Command(String productName, String productRef, int quantity, Double price) throws NegativeValueException, NulValueException {
         validatePrice(price);
+        validateQuantity(quantity);
         this.productName = productName;
         this.productRef = productRef;
         this.quantity = quantity;
@@ -69,7 +70,8 @@ public class Command {
         this.productRef = productRef;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(int quantity) throws NegativeValueException, NulValueException{
+        validateQuantity(quantity);
         this.quantity = quantity;
     }
 
@@ -78,6 +80,14 @@ public class Command {
             throw new NegativeValueException();
         }
         if (price == 0) {
+            throw new NulValueException();
+        }
+    }
+    private void validateQuantity(int quantity) throws NegativeValueException, NulValueException  {
+        if (quantity < 0) {
+            throw new NegativeValueException();
+        }
+        if (quantity == 0) {
             throw new NulValueException();
         }
     }
