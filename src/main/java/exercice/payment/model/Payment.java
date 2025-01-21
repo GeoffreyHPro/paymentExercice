@@ -3,6 +3,7 @@ package exercice.payment.model;
 import exercice.payment.exception.NulValueException;
 import exercice.payment.exception.PaymentStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import exercice.payment.exception.NegativeValueException;
@@ -35,7 +36,9 @@ public class Payment {
     private List<Command> listCommands;
 
     public Payment() {
+        this.listCommands = new ArrayList<>();
         this.paymentStatus = PaymentStatus.IN_PROGRESS;
+        this.amount = 0.0;
     }
 
     public Currency getCurrency() {
@@ -106,5 +109,6 @@ public class Payment {
 
     public void addCommand(Command command) {
         this.listCommands.add(command);
+        this.amount += command.getPrice();
     }
 }
