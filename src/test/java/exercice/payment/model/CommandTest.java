@@ -27,7 +27,6 @@ public class CommandTest {
         } catch (Exception e) {
 
         }
-
     }
 
     @Test
