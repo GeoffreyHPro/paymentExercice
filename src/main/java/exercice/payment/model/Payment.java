@@ -66,7 +66,6 @@ public class Payment {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) throws PaymentStatusException {
         paymentStatusIsValid(paymentStatus);
-        this.paymentStatus = paymentStatus;
     }
 
     private void validateAmount(Double amount) throws NegativeValueException, NulValueException {
@@ -79,7 +78,8 @@ public class Payment {
     }
 
     private void paymentStatusIsValid(PaymentStatus paymentStatus) throws PaymentStatusException {
-        if (paymentStatus.equals(PaymentStatus.CAPTURED) && this.paymentStatus.equals(PaymentStatus.AUTHORIZED)) {
+        if (paymentStatus.equals(PaymentStatus.CAPTURED) &&
+                this.paymentStatus.equals(PaymentStatus.AUTHORIZED)) {
             this.paymentStatus = paymentStatus;
         } else if (paymentStatus.equals(PaymentStatus.AUTHORIZED)
                 && this.paymentStatus.equals(PaymentStatus.IN_PROGRESS)) {
