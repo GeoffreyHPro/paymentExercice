@@ -1,6 +1,7 @@
 package exercice.payment.model;
 
 import exercice.payment.exception.NulValueException;
+import exercice.payment.exception.PaymentStatusException;
 import exercice.payment.exception.NegativeValueException;
 import exercice.payment.utils.Currency;
 import exercice.payment.utils.PaymentMeans;
@@ -63,7 +64,8 @@ public class Payment {
         this.paymentMeans = paymentMeans;
     }
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
+    public void setPaymentStatus(PaymentStatus paymentStatus) throws PaymentStatusException {
+        paymentStatusIsValid(paymentStatus);
         this.paymentStatus = paymentStatus;
     }
 
@@ -73,6 +75,17 @@ public class Payment {
         }
         if (amount == 0) {
             throw new NulValueException();
+        }
+    }
+
+    private void paymentStatusIsValid(PaymentStatus paymentStatus) throws PaymentStatusException {
+        if (paymentStatus.equals(PaymentStatus.CAPTURED) && this.paymentStatus.equals(PaymentStatus.AUTHORIZED)) {
+            this.paymentStatus = paymentStatus;
+        } else if (paymentStatus.equals(PaymentStatus.AUTHORIZED)
+                && this.paymentStatus.equals(PaymentStatus.IN_PROGRESS)) {
+            this.paymentStatus = paymentStatus;
+        } else {
+            throw new PaymentStatusException();
         }
     }
 }
