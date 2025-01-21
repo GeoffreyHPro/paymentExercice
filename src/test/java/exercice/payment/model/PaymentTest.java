@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import exercice.payment.exception.NegativeValueException;
+import exercice.payment.exception.NulValueException;
 import exercice.payment.exception.PaymentStatusException;
 import exercice.payment.utils.PaymentStatus;
 
@@ -51,6 +52,23 @@ public class PaymentTest {
             this.payment.setPaymentStatus(PaymentStatus.CAPTURED);
             this.payment.setPaymentStatus(PaymentStatus.IN_PROGRESS);
             this.payment.setPaymentStatus(PaymentStatus.AUTHORIZED);
+        });
+    }
+
+    @Test
+    public void testPaymentAmountSuccess() throws NegativeValueException, NulValueException {
+        this.payment.setAmount(20.0);
+        assertEquals(20.0, this.payment.getAmount());
+    }
+
+    @Test
+    public void testPaymentAmountThrowException() throws NegativeValueException, NulValueException {
+        assertThrows(NegativeValueException.class, () -> {
+            this.payment.setAmount(-1.0);
+        });
+
+        assertThrows(NulValueException.class, () -> {
+            this.payment.setAmount(0.0);
         });
     }
 
